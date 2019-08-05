@@ -1,9 +1,16 @@
 # SKRR
 Signed Keyboard Robust Recognition
+
+## Description
+
+This is a typing patterns recognition log-in system.
+
+Even though you have the account and password, you can't log in unless your typing pattern is similar to the account's user.
+
 ## Usage
 Run backend.py with Python 3.6, Open 127.0.0.1:5000 in your browser.
 
-Temporarily it only support some of build-in account:
+Temporarily it only support some of build-in accounts:
 
 
 | Account      | Password     |
