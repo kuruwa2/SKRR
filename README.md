@@ -1,9 +1,10 @@
 # SKRR
 Signed Keyboard Robust Recognition
 ## Usage
-Run backend.py with Python 3.6, temporarily I only support some of build-in account:
+Run backend.py with Python 3.6, Open 127.0.0.1:5000 in your browser.
 
-Open 127.0.0.1:5000 in your browser.
+Temporarily I only support some of build-in account:
+
 
 | Account      | Password     |
 | ---------- | :-----------:  |
