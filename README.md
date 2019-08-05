@@ -3,6 +3,8 @@ Signed Keyboard Robust Recognition
 ## Usage
 Run backend.py with Python 3.6, temporarily I only support some of build-in account:
 
+Open 127.0.0.1:5000 in your browser.
+
 | Account      | Password     |
 | ---------- | :-----------:  |
 | Kuruwa6     | u4-4n4  |
