@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <style>
+      label{
+        color:white;
+      }
+    </style>
+  </head>
+  <body style="background-color: rgb(16, 38, 57)">
+    <div class="container" style="margin-top:100px;">
+      <div class="row no-gutters">
+        <ul class="nav nav-pills col-md-3 mx-auto">
+          <li class="nav-item" style="width: 50%">
+            <a class="nav-link active" id="pills-login-tab" data-toggle="pill" href="#pills-login" role="tab" aria-controls="pills-login" aria-selected="true">login</a>
+          </li>
+          <li class="nav-item" style="width: 50%">
+            <a class="nav-link" id="pills-signup-tab" data-toggle="pill" href="#pills-signup" role="tab" aria-controls="pills-signup" aria-selected="true">signup</a>
+          </li>
+        </ul>
+      </div>
+      <div class="row no-gutters" style="margin-top:10px">
+        <div class="col-md-3 mx-auto">
+          <div class="tab-content" id="pills-tabContent">
+            <div class="form-group tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab">
+              <label>帳號</label>
+              <input class="form-control" id="loginAcc" type="text" />
+              <br />
+              <label>密碼</label>
+              <input class="form-control" id="loginPwd" type="text" />
+              <br />
+              <span id='alert'></span>
+              <button id="loginBtn" type="button" class="btn btn-primary">login</button>
+            </div>
+            <div class="form-group tab-pane fade" id="pills-signup" role="tabpanel" aria-labelledby="pills-signup-tab">
+              <label>帳號</label>
+              <input class="form-control" id="signAcc" type="text" />
+              <br />
+              <label>密碼</label>
+              <input class="form-control" id="signPwd" type="password" />
+              <br />
+              <label>確認密碼</label>
+              <input class="form-control" id="signPwd2" type="password" />
+              <br />
+              <button id="signBtn" type="button" class="btn btn-primary" >signup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      var alert = '<div class="alert alert-danger alert-dismissible fade show" role="alert"><strong>帳號或密碼錯誤！</strong><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>';
+        $(document).ready(function(){
+          var isType = [false, false, false];
+          var startTime = [0,0,0];
+          var intervalLogin = new Array();
+          var intervalPwd = new Array();
+          var intervalPwd2 = new Array();
+
+          $("#loginPwd").on("keydown", function(e){
+            if(e.keyCode == 13){
+              $("#loginBtn").triggerHandler('click')
+              while(intervalLogin.length>0) intervalLogin.pop();
+              startTime[0] = 0;
+              isType[0] = false;
+              $(this).val('');
+              return
+            }
+            else if(e.keyCode == 9){
+              return
+            }
+            else if(e.keyCode == 8){
+              while(intervalLogin.length>0) intervalLogin.pop();
+              startTime[0] = 0;
+              isType[0] = false;
+              $(this).val('');
+              return
+            }
+            if(!isType[0]){
+              isType[0] = true;
+              startTime[0] = Date.now();
+            }
+            intervalLogin.push(Date.now()-startTime[0]);
+            console.log(intervalLogin);
+          })
+          $("#signPwd").on("keydown", function(e){
+            if(e.keyCode == 9){
+              return
+            }
+            if(e.keyCode == 8){
+              while(intervalPwd.length>0) intervalPwd.pop();
+              startTime[1] = 0;
+              isType[1] = false;
+              $(this).val('');
+              return
+            }
+            if(!isType[1]){
+              isType[1] = true;
+              startTime[1] = Date.now();
+            }
+            intervalPwd.push(Date.now()-startTime[1]);
+            console.log(intervalPwd);
+          })
+          $("#signPwd2").on("keydown", function(e){
+            if(e.keyCode == 13){
+              $("loginBtn").click()
+              return
+            }
+            else if(e.keyCode == 8){
+              while(intervalPwd2.length>0) intervalPwd2.pop();
+              startTime[2] = 0;
+              isType[2] = false;
+              $(this).val('');
+              return
+            }
+            if(!isType[2]){
+              isType[2] = true;
+              startTime[2] = Date.now();
+            }
+            intervalPwd2.push(Date.now()-startTime[2]);
+            console.log(intervalPwd2);
+          })
+          $('#loginBtn').on('click', function(){
+            $.ajax({
+              url: "./login",
+              type: "POST",
+              dataType: 'json',
+              contentType: 'application/json',
+              data: JSON.stringify({
+                acc: $('#loginAcc').val(),
+                pwd: $('#loginPwd').val(),
+                interval: intervalLogin
+              }),
+              success:function(rtn){
+                if(rtn.status)
+                  location.href = "./success"
+                else
+                  $('#alert').html(alert)
+
+              },
+              error:function(xhr){
+                console.log(xhr);
+              }
+            })
+          });
+          $('#signBtn').on('click', function(){
+            $.ajax({
+              url: "./signup",
+              type: "POST",
+              dataType: 'json',
+              contentType: 'application/json',
+              data: JSON.stringify({
+                acc: $('#signAcc').val(),
+                pwd: $('#signPwd').val(),
+                intervalPwd: [intervalPwd,intervalPwd2]
+              }),
+              success:function(rtn){
+                console.log(rtn);
+              },
+              error:function(xhr){
+                console.log(xhr);
+              }
+            })
+          })
+        })
+
+      </script>
+  </body>
+</html>
